@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texto dinámico</title>
+</head>
+<body>
+  <h2>Generar párrafo con estilos</h2>
+
+  <input id="text-input" type="text" placeholder="Escribe algo" />
+
+  <div>
+    <h3>Estilos:</h3>
+    <label>
+      <input type="checkbox" id="bold-check" />
+      Negrita
+    </label>
+    <label>
+      <input type="checkbox" id="italic-check" />
+      Cursiva
+    </label>
+    <label>
+      <input type="checkbox" id="underline-check" />
+      Subrayado
+    </label>
+  </div>
+
+  <div>
+    <h3>Fuente:</h3>
+    <label>
+      <input type="radio" name="font" value="Arial" checked />
+      Arial
+    </label>
+    <label>
+      <input type="radio" name="font" value="Times New Roman" />
+      Times New Roman
+    </label>
+    <label>
+      <input type="radio" name="font" value="Courier New" />
+      Courier
+    </label>
+  </div>
+
+  <button id="generate-btn">Generar párrafo</button>
+
+  <div id="paragraph-container"></div>
+
+  <script src="./built/index.js"></script>
+</body>
+</html>

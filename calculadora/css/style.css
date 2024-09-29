@@ -1,0 +1,17 @@
+body{
+    background: salmon;
+}
+
+.divpadre{
+    display: flex;
+    background: yellow;
+    height: 100px;
+    width: 200px;
+}
+.divnumeros{
+    background: gray;
+}
+
+.divsimbolos{
+    background: skyblue;
+}
