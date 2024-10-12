@@ -1,0 +1,51 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.colors{
+    width: 50%;
+    display: flex;
+}
+
+.colors button{
+    width: 100%;
+    border: none;
+}
+
+.othersize{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: grey;
+}
+
+.othersize button{
+    width: 30%;
+    height: 120px;
+    border: none;
+    border-radius: 12px;
+    background: #ffc8c3;
+}
+
+.yellow{
+    background: yellow;
+}
+
+.blue{
+    background: blue;
+}
+
+.green{
+    background: green;
+}
+
+.red{
+    background: red;
+}
