@@ -7,4 +7,16 @@ let contadordeVisitas: number = 1;
 // Creamos y asignamos una variable let tipo string.
 var mensajedeBienvenida: string = "hola bienvenido";
 
+/**
+ * 
+ */
+do {
+    console.log(nombrePagina)
+    console.log(mensajedeBienvenida)
+    console.log("---------------------")
+    contadordeVisitas++;
 
+} while (contadordeVisitas < visitasMaximas){
+    console.log("NO ERES BIENVENIDO, POR FAVOR ABANDONA ESTE SITIO")
+
+}

@@ -21,6 +21,7 @@ if (contadordeVisitas < visitasMaximas) {
 }
 if (contadordeVisitas < visitasMaximas) {
     contadordeVisitas++;
+    console.log(nombrePagina);
     console.log(mensajedeBienvenida);
     console.log("---------------------");
 }
