@@ -3,13 +3,13 @@ let categories = new Set();
 const category = document.getElementById('category');
 const addcategory = document.getElementById('addCategory');
 const watchCategory = document.getElementById('watchCategory');
-let parrafo = document.getElementById('parrafo');
+let parrafo = document.getElementById('texto');
 addcategory.addEventListener('click', () => {
     categories.add(category.value);
 });
 watchCategory.addEventListener('click', () => {
-    parrafo.innerText = '';
+    parrafo.innerHTML = '';
     categories.forEach((category) => {
-        parrafo.innerText += category + '<br>';
+        parrafo.innerHTML += category + '<br>';
     });
 });
