@@ -1,0 +1,66 @@
+index.ts
+
+// Pensar mejor tematica
+export let clientes: { nombre: string; email: string }[] = [
+    { nombre: "Cristian Calderon", email: "ccalderon@elpuig.com" },
+    { nombre: "Raul Garcia", email: "raul@elpuig.com" },
+    { nombre: "Manuel Marina", email: "manuel@elpuig.com" },
+    { nombre: "Paco Puig", email: "paco@elpuig.com" },
+    { nombre: "Jaume Clot", email: "jaume@elpuig.com" },
+    { nombre: "Javier Luna", email: "javier@elpuig.com" },
+    { nombre: "Juan Riquelme", email: "jr10boca" },
+];
+
+
+const correo= (email: string): boolean => {
+    return email.includes("@");
+}
+
+const mostrarClientes = (clientes: { nombre: string; email: string }[]): void => {
+    const body = document.body;
+
+    const lista: HTMLUListElement = document.createElement("ul");
+    body.appendChild(lista);
+
+    // Comprobamos si es un correo válido
+    const correosvalidos: { nombre: string; email: string }[] = clientes.filter(c => correo(c.email));
+
+    // Mostramos los correos válidos
+    correosvalidos.forEach(c => {
+        const li: HTMLLIElement = document.createElement("li");
+        li.style.listStyle = "none";
+        li.textContent = `${c.nombre} ${c.email}`;
+        lista.appendChild(li);
+    });
+}
+
+// Llamar a la función con la variable clientes
+
+(window as any).mostrarClientes = mostrarClientes;
+(window as any).clientes = clientes;
+
+
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body onload="mostrarClientes(clientes)">
+    
+
+
+    <div class="libreria">
+        <form action="">
+            <label for="multimedia">Peliculas y Videojuegos</label>
+            <input type="text" name="multimedia" id="multi">
+        </form>
+
+    </div>
+    <script src="./dist/index.js"></script>
+</body>
+</html> 
