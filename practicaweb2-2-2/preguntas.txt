@@ -1,7 +1,5 @@
-index.ts
-
 // Pensar mejor tematica
-export let clientes: { nombre: string; email: string }[] = [
+let clientes: { nombre: string; email: string }[] = [
     { nombre: "Cristian Calderon", email: "ccalderon@elpuig.com" },
     { nombre: "Raul Garcia", email: "raul@elpuig.com" },
     { nombre: "Manuel Marina", email: "manuel@elpuig.com" },
@@ -11,13 +9,16 @@ export let clientes: { nombre: string; email: string }[] = [
     { nombre: "Juan Riquelme", email: "jr10boca" },
 ];
 
-
-const correo= (email: string): boolean => {
+const correo = (email: string): boolean => {
     return email.includes("@");
 }
 
 const mostrarClientes = (clientes: { nombre: string; email: string }[]): void => {
     const body = document.body;
+
+    const h3: HTMLHeadingElement = document.createElement("h3");
+    h3.textContent = "Clientes";
+    body.appendChild(h3);
 
     const lista: HTMLUListElement = document.createElement("ul");
     body.appendChild(lista);
@@ -34,33 +35,101 @@ const mostrarClientes = (clientes: { nombre: string; email: string }[]): void =>
     });
 }
 
-// Llamar a la función con la variable clientes
+// Peliculas y videojuegos
+type Peliculas = { tipo: "pelicula"; nombre: string };
+type Videojuego = { tipo: "videojuego"; nombre: string; plataforma: string };
+type Producto = Peliculas | Videojuego;
 
-(window as any).mostrarClientes = mostrarClientes;
-(window as any).clientes = clientes;
+// Lista de productos
+let productos: Producto[] = [
+    { tipo: "pelicula", nombre: "El señor de los anillos" },
+    { tipo: "videojuego", nombre: "Fifa 21", plataforma: "PS4" },
+    { tipo: "videojuego", nombre: "Starcraft", plataforma: "PC" },
+    { tipo: "videojuego", nombre: "Dota 2", plataforma: "PC" },
+];
 
+// funciones de sobrecarga
+function agregarProducto(nombre: string): void;
+function agregarProducto(nombre: string, plataforma: string): void;
+function agregarProducto(nombre: string, plataforma?: string): void {
+    if (plataforma) {
+        productos.push({ tipo: "videojuego", nombre, plataforma });
+    } else {
+        productos.push({ tipo: "pelicula", nombre });
+    }
+}
 
-index.html
+// Mostrar productos 
+function mostrarProductos() {
+    const body = document.body;
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practica</title>
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body onload="mostrarClientes(clientes)">
+    const h3: HTMLHeadingElement = document.createElement("h3");
+    h3.textContent = "Productos";
+    body.appendChild(h3);
+
+    const lista: HTMLUListElement = document.createElement("ul");
+    body.appendChild(lista);
+
+    productos.forEach((p) => {
+        const li: HTMLLIElement = document.createElement("li");
+        li.style.listStyle = "none";
+        if (p.tipo === "pelicula") {
+            li.textContent = `Pelicula: ${p.nombre}`;
+        } else {
+            li.textContent = `Videojuego: ${p.nombre} Plataforma: ${p.plataforma}`;
+        }
+        lista.appendChild(li);
+    })
+
     
 
+}
 
-    <div class="libreria">
-        <form action="">
-            <label for="multimedia">Peliculas y Videojuegos</label>
-            <input type="text" name="multimedia" id="multi">
-        </form>
+function entrada() {
+    const input = document.getElementById("multimedia") as HTMLInputElement;
+    // Para quitar espacios en blanco
+    const valor: string = input.value.trim();
 
-    </div>
-    <script src="./dist/index.js"></script>
-</body>
-</html> 
+    if (valor.includes(",")) {
+        const [nombre, plataforma] = valor.split(",").map((v) => v.trim());
+        if (nombre && plataforma) {
+            agregarProducto(nombre, plataforma);
+        } else {
+            console.log("Formato incorrecto. Incluye un nombre y una plataforma");
+        }
+    } else {
+        if (valor) {
+            agregarProducto(valor);
+        } else {
+            console.log("Formato incorrecto. Incluye un nombre");
+        }
+    }
+    input.value = "";
+    actualizarProductos();
+
+}
+
+function actualizarProductos() {
+    
+    const listaExistente = document.querySelector("ul.productos");
+    if (listaExistente) {
+        listaExistente.remove(); // Eliminar solo la lista de productos
+    }
+
+    
+    mostrarProductos();
+}
+
+
+function cargar() {
+    console.log("Ejecutando");
+    mostrarClientes(clientes);
+    mostrarProductos();
+
+    const input: HTMLInputElement = document.getElementById("multimedia") as HTMLInputElement;
+    const boton: HTMLButtonElement = document.getElementById("agregar") as HTMLButtonElement;
+    boton.addEventListener("click", entrada);
+}
+
+// Hacer accesible la función cargar al ambito global sin usar (type = "module")
+(window as any).cargar = cargar;
