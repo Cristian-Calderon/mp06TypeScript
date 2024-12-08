@@ -45,6 +45,15 @@ function agregarProducto(nombre, plataforma) {
 }
 // Mostrar productos 
 function mostrarProductos() {
+    // Verificar si el título ya existe
+    let titulo = document.querySelector("h3#tituloProductos");
+    if (!titulo) {
+        // Si no existe, crearlo
+        titulo = document.createElement("h3");
+        titulo.id = "tituloProductos"; // Asignar un ID único para identificarlo
+        titulo.textContent = "Productos";
+        document.body.appendChild(titulo);
+    }
     // Verificar si la lista ya existe
     let lista = document.querySelector("ul.productos");
     if (!lista) {
@@ -101,6 +110,52 @@ function actualizarProductos() {
     }
     mostrarProductos();
 }
+// Mostrar informacion
+function mostrarInformacion(tipo) {
+    var _a;
+    const tablaExistente = document.querySelector("table.productos");
+    if (tablaExistente) {
+        tablaExistente.remove(); // Eliminar la tabla existente
+    }
+    const tabla = document.createElement("table");
+    tabla.className = "productos";
+    const encabezado = document.createElement("thead");
+    const filaEncabezado = document.createElement("tr");
+    if (tipo === "peliculas" || tipo === "ambos") {
+        const thPelicula = document.createElement("th");
+        thPelicula.textContent = "Películas";
+        filaEncabezado.appendChild(thPelicula);
+    }
+    if (tipo === "videojuegos" || tipo === "ambos") {
+        const thVideojuego = document.createElement("th");
+        thVideojuego.textContent = "Videojuegos";
+        filaEncabezado.appendChild(thVideojuego);
+    }
+    encabezado.appendChild(filaEncabezado);
+    tabla.appendChild(encabezado);
+    const cuerpo = document.createElement("tbody");
+    const maxFilas = Math.max(tipo === "peliculas" || tipo === "ambos" ? productos.filter(p => p.tipo === "pelicula").length : 0, tipo === "videojuegos" || tipo === "ambos" ? productos.filter(p => p.tipo === "videojuego").length : 0);
+    for (let i = 0; i < maxFilas; i++) {
+        const fila = document.createElement("tr");
+        if (tipo === "peliculas" || tipo === "ambos") {
+            const peliculas = productos.filter(p => p.tipo === "pelicula");
+            const celdaPelicula = document.createElement("td");
+            celdaPelicula.textContent = ((_a = peliculas[i]) === null || _a === void 0 ? void 0 : _a.nombre) || "";
+            fila.appendChild(celdaPelicula);
+        }
+        if (tipo === "videojuegos" || tipo === "ambos") {
+            const videojuegos = productos.filter(p => p.tipo === "videojuego");
+            const celdaVideojuego = document.createElement("td");
+            celdaVideojuego.textContent = videojuegos[i]
+                ? `${videojuegos[i].nombre} (${videojuegos[i].plataforma})`
+                : "";
+            fila.appendChild(celdaVideojuego);
+        }
+        cuerpo.appendChild(fila);
+    }
+    tabla.appendChild(cuerpo);
+    document.body.appendChild(tabla);
+}
 function cargar() {
     console.log("Ejecutando");
     mostrarClientes(clientes);
@@ -108,6 +163,12 @@ function cargar() {
     const input = document.getElementById("multimedia");
     const boton = document.getElementById("agregar");
     boton.addEventListener("click", entrada);
+    const btnPeliculas = document.getElementById("mostrarPeliculas");
+    const btnVideojuegos = document.getElementById("mostrarVideojuegos");
+    const btnAmbos = document.getElementById("mostrarAmbos");
+    btnPeliculas.addEventListener("click", () => mostrarInformacion("peliculas"));
+    btnVideojuegos.addEventListener("click", () => mostrarInformacion("videojuegos"));
+    btnAmbos.addEventListener("click", () => mostrarInformacion("ambos"));
 }
 // Hacer accesible la función cargar al ambito global sin usar (type = "module")
 window.cargar = cargar;
