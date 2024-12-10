@@ -1,0 +1,99 @@
+index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo</title>
+    <script src="./dist/index.js"></script>
+</head>
+<body onload="load()">
+    
+    <div class="libreria">
+        <form action="">
+            <label for="multimedia">Peliculas y Videojuegos</label>
+            <input type="text" name="multimedia" id="multimedia">
+            <button type="button" id="agregar">Agregar</button>
+        </form>
+    </div>
+
+</body>
+</html>
+
+index.ts
+const customers = new Set<{ name: string; email: string }>([
+    { name: "Cristian Calderon", email: "ccalderon@elpuig.com" },
+    { name: "Raul Garcia", email: "raul@elpuig.com" },
+    { name: "Manuel Marina", email: "manuel@elpuig.com" },
+    { name: "Paco Puig", email: "paco@elpuig.com" },
+    { name: "Jaume Clot", email: "jaume@elpuig.com" },
+    { name: "Javier Luna", email: "javier@elpuig.com" },
+    { name: "Juan Riquelme", email: "jr10boca" }, // Inválido
+]);
+// : (email: string) => boolean
+const isEmail: (email: string) => boolean = (email: string): boolean => {
+    return email.includes("@");
+}
+
+const showCustomers = (customers: Set<{ name: string; email: string }>): void => {
+
+    const body: HTMLHeadingElement = document.body as HTMLHeadingElement;
+
+    const h3: HTMLHeadingElement = document.createElement("h3");
+    h3.textContent = "Customers";
+    body.appendChild(h3);
+
+    const list: HTMLUListElement = document.createElement("ul");
+    body.appendChild(list);
+
+    const validEmails : {name: string, email: string}[] = Array.from(customers).filter((c) => isEmail(c.email));
+
+    validEmails.forEach((i)=>{
+        const li: HTMLLIElement = document.createElement("li");
+        li.style.listStyle = "none";
+        li.textContent = i.name + " ~ " + i.email;
+        list.appendChild(li);
+    });
+}
+
+
+//  Segunda parte
+const products: ({ type: "pelicula"; name: string } | { type: "videojuego"; name: string; platform: string })[] = [
+    { type: "pelicula", name: "El señor de los anillos" },
+    { type: "videojuego", name: "Fifa 21", platform: "PS4" },
+    { type: "videojuego", name: "Dota 2", platform: "PC" },
+];
+
+
+// Sobrecarga
+function addProduct(name:string):void;
+function addProduct(name:string, platform: string):void;
+function addProduct(name:string, platform?: string):void{
+
+    if(platform){
+        products.push({type:"videojuego", name, platform});
+    }
+    else{
+        products.push({type:"pelicula", name});
+    }
+}
+
+
+
+
+// Función cargar funciones :D
+function load() {
+    showCustomers(customers);
+}
+
+
+
+(window as any).load = load;
+
+El usuario podrá añadir películas o videojuegos a la lista desde el mismo input:
+
+    • Si sólo se introduce un nombre, se guardará como película.
+    • Si se introduce dos nombres separados por coma, se guardará como videojuego (Nombre y plataforma).
+
+Se debe utilizar sobrecarga para realizar este apartado, ya que también se deben añadir un mínimo de 3 productos (ya sea películas, videojuegos o ambas)
