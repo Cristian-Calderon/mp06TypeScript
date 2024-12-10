@@ -15,22 +15,25 @@ const isEmail: (email: string) => boolean = (email: string): boolean => {
 const showCustomers = (customers: Set<{ name: string; email: string }>): void => {
 
     const body: HTMLHeadingElement = document.body as HTMLHeadingElement;
-    
+    const divmain: HTMLDivElement = document.createElement("div");
+    divmain.classList.add("container");
+    body.appendChild(divmain);
+
     const h3: HTMLHeadingElement = document.createElement("h3");
     h3.textContent = "Customers";
     h3.classList.add("text-center");
-    body.appendChild(h3);
+    divmain.appendChild(h3);
 
     const list: HTMLUListElement = document.createElement("ul");
     list.classList.add("text-center");
     list.classList.add("list-group");
-    body.appendChild(list);
+    divmain.appendChild(list);
 
     const validEmails: { name: string, email: string }[] = Array.from(customers).filter((c) => isEmail(c.email));
 
     validEmails.forEach((i) => {
         const li: HTMLLIElement = document.createElement("li");
-        li.style.listStyle = "none";
+        // li.style.listStyle = "none";
         li.classList.add("list-group-item");
         li.textContent = i.name + " - " + i.email;
         list.appendChild(li);

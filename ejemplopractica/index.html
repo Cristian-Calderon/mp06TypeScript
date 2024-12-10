@@ -8,44 +8,48 @@
     <link rel="stylesheet" href="./style/index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body onload="load()">
-    
-    <div class="libreria">
-        <form action="">
-            <label for="multimedia">Peliculas y Videojuegos</label>
-            <input type="text" name="multimedia" id="multimedia">
-            <button type="button" id="agregar" class="btn btn-secondary">Agregar</button>
-        </form>
-    </div>
+<body class="bg-light" onload="load()">
 
-    <div id="productos">
-        <h3>Productos</h3>
-        <ul id="productos-list">
-            
-        </ul>
-    </div>
-    <!-- Tercera seccion -->
+    <div class="container mt-4">
+        <!-- Sección de formulario -->
+        <div class="card p-4 mb-4">
+            <h4 class="card-title">Agregar Productos</h4>
+            <form class="d-flex flex-column gap-3">
+                <label for="multimedia" class="form-label">Películas y Videojuegos</label>
+                <input type="text" class="form-control" name="multimedia" id="multimedia" placeholder="Ejemplo: Nombre, Plataforma">
+                <button type="button" id="agregar" class="btn btn-secondary">Agregar</button>
+            </form>
+        </div>
 
-    <div id="filtro">
-        <h3> Filtrar Productos</h3>
-        <button type="button" id="btnPeliculas" class="btn btn-primary">Mostrar Películas</button>
-        <button type="button" id="btnVideojuegos" class="btn btn-primary">Mostrar Videojuegos</button>
-        <button type="button" id="btnAmbos" class="btn btn-primary">Mostrar Ambos</button>
-        
-        <h3>Productos</h3>
-        <table id="productos-table">
-            <thead>
-                <tr>
-                    <th id="colPeliculas" style="display: none;">Películas</th>
-                    <th id="colVideojuegos" style="display: none;">Videojuegos</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Filas dinámicas -->
-            </tbody>
-        </table>
-    </div>
+        <!-- Lista de productos -->
+        <div class="mb-4">
+            <h3>Productos</h3>
+            <ul id="productos-list" class="list-group list-unstyled"></ul>
+        </div>
 
+        <!-- Filtros y tabla -->
+        <div class="card p-4">
+            <h3 class="card-title mb-3">Filtrar Productos</h3>
+            <div class="btn-group mb-4" role="group">
+                <button type="button" id="btnPeliculas" class="btn btn-primary">Mostrar Películas</button>
+                <button type="button" id="btnVideojuegos" class="btn btn-primary">Mostrar Videojuegos</button>
+                <button type="button" id="btnAmbos" class="btn btn-primary">Mostrar Ambos</button>
+            </div>
+
+            <h3>Productos</h3>
+            <table id="productos-table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th id="colPeliculas" style="display: none;">Películas</th>
+                        <th id="colVideojuegos" style="display: none;">Videojuegos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Filas dinámicas -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

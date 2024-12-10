@@ -14,18 +14,21 @@ const isEmail = (email) => {
 };
 const showCustomers = (customers) => {
     const body = document.body;
+    const divmain = document.createElement("div");
+    divmain.classList.add("container");
+    body.appendChild(divmain);
     const h3 = document.createElement("h3");
     h3.textContent = "Customers";
     h3.classList.add("text-center");
-    body.appendChild(h3);
+    divmain.appendChild(h3);
     const list = document.createElement("ul");
     list.classList.add("text-center");
     list.classList.add("list-group");
-    body.appendChild(list);
+    divmain.appendChild(list);
     const validEmails = Array.from(customers).filter((c) => isEmail(c.email));
     validEmails.forEach((i) => {
         const li = document.createElement("li");
-        li.style.listStyle = "none";
+        // li.style.listStyle = "none";
         li.classList.add("list-group-item");
         li.textContent = i.name + " - " + i.email;
         list.appendChild(li);
