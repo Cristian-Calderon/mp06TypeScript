@@ -15,12 +15,15 @@ const isEmail: (email: string) => boolean = (email: string): boolean => {
 const showCustomers = (customers: Set<{ name: string; email: string }>): void => {
 
     const body: HTMLHeadingElement = document.body as HTMLHeadingElement;
-
+    
     const h3: HTMLHeadingElement = document.createElement("h3");
     h3.textContent = "Customers";
+    h3.classList.add("text-center");
     body.appendChild(h3);
 
     const list: HTMLUListElement = document.createElement("ul");
+    list.classList.add("text-center");
+    list.classList.add("list-group");
     body.appendChild(list);
 
     const validEmails: { name: string, email: string }[] = Array.from(customers).filter((c) => isEmail(c.email));
@@ -28,7 +31,8 @@ const showCustomers = (customers: Set<{ name: string; email: string }>): void =>
     validEmails.forEach((i) => {
         const li: HTMLLIElement = document.createElement("li");
         li.style.listStyle = "none";
-        li.textContent = i.name + " ~ " + i.email;
+        li.classList.add("list-group-item");
+        li.textContent = i.name + " - " + i.email;
         list.appendChild(li);
     });
 }
@@ -88,12 +92,67 @@ const handleAddProduct = () => {
 
 // Tercera parte
 
+// Función para mostrar productos en la tabla
+const updateTable = (filter: "peliculas" | "videojuegos" | "ambos") => {
+    const tableBody = document.querySelector("#productos-table tbody") as HTMLTableSectionElement;
+    const colPeliculas = document.getElementById("colPeliculas") as HTMLTableCellElement;
+    const colVideojuegos = document.getElementById("colVideojuegos") as HTMLTableCellElement;
+
+    tableBody.innerHTML = ""; // Limpiar filas de la tabla
+
+    const peliculas = products.filter(p => p.type === "pelicula");
+    const videojuegos = products.filter(p => p.type === "videojuego");
+
+    // Configuración de encabezados
+    colPeliculas.style.display = filter === "peliculas" || filter === "ambos" ? "table-cell" : "none";
+    colVideojuegos.style.display = filter === "videojuegos" || filter === "ambos" ? "table-cell" : "none";
+
+    if (filter === "peliculas" || filter === "ambos") {
+        peliculas.forEach(p => {
+            const row = document.createElement("tr");
+            const cell = document.createElement("td");
+            cell.textContent = p.name;
+            row.appendChild(cell);
+            if (filter === "ambos") {
+                row.appendChild(document.createElement("td")); // Celda vacía para alinear columnas
+            }
+            tableBody.appendChild(row);
+        });
+    }
+
+    if (filter === "videojuegos" || filter === "ambos") {
+        videojuegos.forEach(v => {
+            const row = document.createElement("tr");
+            if (filter === "ambos") {
+                row.appendChild(document.createElement("td")); // Celda vacía para alinear columnas
+            }
+            const cell = document.createElement("td");
+            cell.textContent = `${v.name} (${v.platform})`;
+            row.appendChild(cell);
+            tableBody.appendChild(row);
+        });
+    }
+};
+
+// Cargar eventos de botones y mostrar datos iniciales
+const initFilterSection = () => {
+    document.getElementById("btnPeliculas")?.addEventListener("click", () => updateTable("peliculas"));
+    document.getElementById("btnVideojuegos")?.addEventListener("click", () => updateTable("videojuegos"));
+    document.getElementById("btnAmbos")?.addEventListener("click", () => updateTable("ambos"));
+
+    // Mostrar todos los productos por defecto
+    updateTable("ambos");
+};
+
 
 // Función cargar inicial
 function load(): void {
     showCustomers(customers);
     showProducts(); // Mostrar los productos al cargar
     document.getElementById("agregar")?.addEventListener("click", handleAddProduct);
+
+    initFilterSection();      // Nueva funcionalidad
+
 }
 
 (window as any).load = load;
