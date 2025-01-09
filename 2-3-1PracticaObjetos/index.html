@@ -3,12 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Fuddruckers</title>
     
 </head>
 <body onload="load()">
     <div class="container"></div>
 
+    <div>
+        <p>Agregar nuevo plato</p>
+        <input type="text" id="dishName" placeholder="Nombre del plato">
+        <input type="number" id="dishPrice" placeholder="Precio del plato">
+        <button onclick="addDish()">Añadir Plato</button>
+    </div>
+
+    <div>
+        <p>Total de platos</p>
+        <button onclick="showTotal()">Mostrar Total</button>
+        <p id="totalPrice"></p>
+    </div>
+
+    <div>
+        <h3>Añadir nuevos clientes</h3>
+        <input type="text" id="firstName" placeholder="Nombre">
+        <input type="text" id="lastName" placeholder="Apellido">
+        <input type="text" id="dni" placeholder="DNI">
+        <input type="text" id="creditCard" placeholder="Tarjeta de Crédito">
+        <button onclick="addClient()">Añadir Cliente</button>
+        <div id="clientList"></div>
+    </div>
 
     <script src="./dist/index.js"></script>
 </body>

@@ -58,7 +58,100 @@ function printRestaurant(rest) {
 function calculateTotal() {
     return restaurant.dishes.reduce((total, dish) => total + dish.price, 0);
 }
+function showTotal() {
+    const totalPriceElement = document.getElementById('totalPrice');
+    const total = calculateTotal();
+    totalPriceElement.textContent = `Total: $${total.toFixed(2)}`;
+}
+function addDish() {
+    const dishNameInput = document.getElementById('dishName');
+    const dishPriceInput = document.getElementById('dishPrice');
+    const dishName = dishNameInput.value;
+    const dishPrice = parseFloat(dishPriceInput.value);
+    if (dishName && !isNaN(dishPrice)) {
+        restaurant.dishes.push({ name: dishName, price: dishPrice });
+        printRestaurant(restaurant);
+    }
+    else {
+        alert('Por favor, introduce un nombre y un precio válidos.');
+    }
+}
 function load() {
     printRestaurant(restaurant);
 }
 window.load = load;
+// Ejercicio 2: Clientes y Pedidos
+class Client {
+    // Constructor para inicializar las propiedades
+    constructor(firstName, lastName, dni, creditCard) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.orders = [];
+        this.dni = dni;
+        this.creditCard = creditCard;
+    }
+    // Getters y Setters para dni
+    getDni() {
+        return this.dni;
+    }
+    setDni(dni) {
+        this.dni = dni;
+    }
+    // Getters y Setters para creditCard
+    getCreditCard() {
+        return this.creditCard;
+    }
+    setCreditCard(creditCard) {
+        this.creditCard = creditCard;
+    }
+    addOrder(order) {
+        this.orders.push(order);
+    }
+}
+class Pedido {
+    constructor(dishes) {
+        this.dishes = dishes;
+        this.id = Pedido.idCounter++;
+    }
+    // Getter para id
+    getId() {
+        return this.id;
+    }
+    // Getter y Setter para dishes
+    getDishes() {
+        return this.dishes;
+    }
+    setDishes(dishes) {
+        this.dishes = dishes;
+    }
+}
+Pedido.idCounter = 0;
+// Logica
+const clients = [];
+function addClient() {
+    const firstNameInput = document.getElementById('firstName');
+    const lastNameInput = document.getElementById('lastName');
+    const dniInput = document.getElementById('dni');
+    const creditCardInput = document.getElementById('creditCard');
+    const firstName = firstNameInput.value;
+    const lastName = lastNameInput.value;
+    const dni = dniInput.value;
+    const creditCard = creditCardInput.value;
+    if (firstName && lastName && dni && creditCard) {
+        const newClient = new Client(firstName, lastName, dni, creditCard);
+        clients.push(newClient);
+        printClients();
+    }
+    else {
+        alert('Por favor, introduce todos los datos del cliente.');
+    }
+}
+function printClients() {
+    const clientList = document.getElementById('clientList');
+    clientList.innerHTML = '';
+    clients.forEach((client) => {
+        const clientItem = document.createElement('p');
+        clientItem.textContent = `${client.firstName} ${client.lastName} - DNI: ${client.getDni()}`;
+        clientList.appendChild(clientItem);
+    });
+}
