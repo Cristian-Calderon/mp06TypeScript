@@ -22,14 +22,43 @@ const restaurant = {
 };
 function printRestaurant(rest) {
     const container = document.querySelector('.container');
-    if (typeof restaurant === 'object') {
-        const titlerestaurant = document.createElement('h2');
-        titlerestaurant.textContent = restaurant.name;
-        container.appendChild(titlerestaurant);
+    // Limpiar contenido previo
+    container.innerHTML = '';
+    if (rest) {
+        // Crear y agregar el título del restaurante
+        const titleRestaurant = document.createElement('h3');
+        titleRestaurant.textContent = rest.name;
+        container.appendChild(titleRestaurant);
+        // Crear y agregar la ubicación
+        const locationElement = document.createElement('p');
+        locationElement.textContent = `Ubicación: ${rest.location}`;
+        container.appendChild(locationElement);
+        // Crear y agregar la lista de platos
+        const menuTitle = document.createElement('p');
+        menuTitle.textContent = "Menú:";
+        container.appendChild(menuTitle);
+        // Lista de elementos
+        const dishList = document.createElement('ul');
+        rest.dishes.forEach((dish) => {
+            const dishItem = document.createElement('li');
+            dishItem.style.listStyleType = 'none';
+            dishItem.textContent = `${dish.name} - $${dish.price.toFixed(2)}`;
+            dishList.appendChild(dishItem);
+        });
+        container.appendChild(dishList);
     }
     else {
-        console.log('El restaurante no esta abierto');
+        // Mensaje si no hay restaurante
+        const message = document.createElement('p');
+        message.textContent = 'El restaurante no está abierto';
+        container.appendChild(message);
     }
-    // no recibe el objeto
 }
-printRestaurant(restaurant);
+// Función que suma el precio de todos los platos
+function calculateTotal() {
+    return restaurant.dishes.reduce((total, dish) => total + dish.price, 0);
+}
+function load() {
+    printRestaurant(restaurant);
+}
+window.load = load;
