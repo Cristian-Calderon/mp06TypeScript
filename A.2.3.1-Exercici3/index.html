@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Classes i objectes</title>
+    <script src="./dist/index.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body onload="inicialitzacio()">
+    <section>
+        <input type="text" id="plat" placeholder="Plato y servicio">
+        <button onclick="afegirPlat()">Agregar</button>
+        <input type="text" id="client" placeholder="Cliente (Nombre, Apellidos, DNI, Tarjeta)">
+        <button onclick="afegirClient()">Agregar</button>
+        <input type="text" id="comanda" placeholder="Pedido(platos)">
+        <button onclick="afegirComanda()">Agregar</button>
+        <input type="text" id="comandaClient" placeholder="Pedido,DNI Cliente">
+        <button onclick="afegirComandaClient()">Agregar</button>
+    </section>
+
+    <div class="container">
+        <section id="restaurant">
+        </section>
+
+        <section id="clients">
+        </section>
+
+        <section id="comandes">
+        </section>
+    </div>
+
+    <section>
+        <input type="text" id="dniClient" placeholder="DNI client">
+        <button onclick="mostrarComandesClient()">Mostrar pedidos</button>
+    </section>
+    <section id="comandesClient">
+        
+    </section>
+
+</body>
+
+</html>
