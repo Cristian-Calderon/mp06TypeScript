@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Video Club</title>
+  <script src="./dist/videoclub.js"></script>
+  <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body onload="loadData()">
+  <div class="background-image"></div>
+
+  <h1>Video Club</h1>
+
+  <section id="clients">
+    <h2>Client List</h2>
+    <ul id="clientList"></ul>
+  </section>
+
+  <section id="addItem">
+    <h2>Add Movies or Video Games</h2>
+    <input type="text" id="itemInput" placeholder="Name or Name, Platform">
+    <button onclick="addProduct()">Add</button>
+  </section>
+
+  <section id="displayItems">
+    <h2>Show Content</h2>
+    <div class="controls">
+      <button onclick="displayData('Movies')">Show Movies</button>
+      <button onclick="displayData('Video Games')">Show Video Games</button>
+      <button onclick="displayData()">Show All</button>
+    </div>
+    <div id="tableContainer"></div>
+  </section>
+
+</body>
+
+</html>

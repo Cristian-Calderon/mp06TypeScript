@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <form id="miFormulario" action="unhtmlnou.html" method="get">
+        <div class="content">
+
+            <fieldset>
+                <legend>Información Personal</legend>
+
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Nombre">
+
+                <label for="apellido">Apellido:</label>
+                <input type="text" name="apellido" id="apellido" placeholder="Apellido">
+
+                <label for="edad">Edad:</label>
+                <input type="number" name="edad" id="edad" placeholder="Edad" required>
+                <p id="mensajeEdad" style="color: red;"></p> 
+            </fieldset>
+
+
+            <fieldset>
+                <legend>Iniciar Sesión</legend>
+
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" placeholder="Email">
+
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" name="telefono" id="telefono" placeholder="Teléfono" minlength="3" maxlength="5">
+
+                <label for="password">Contraseña:</label>
+                <input type="password" name="password" id="password" placeholder="Readonly!!" readonly>
+            </fieldset>
+
+            <fieldset>
+                <legend>Otros</legend>
+
+                <label for="fecha">Fecha:</label>
+                <input type="date" name="fecha" id="fecha" placeholder="Fecha">
+
+                <label for="url">URL:</label>
+                <input type="url" name="url" id="url" placeholder="URL">
+
+                <label for="comentario">Comentario:</label>
+                <textarea name="comentario" id="comentario" rows="5" cols="40">aasdasdasdsa</textarea>
+            </fieldset>
+
+            <fieldset>
+                <legend>Opciones</legend>
+
+                <label for="cars">Elige un carro:</label>
+                <select name="cars" id="cars">
+                    <optgroup label="Swedish Cars">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                    </optgroup>
+                    <optgroup label="German Cars">
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </optgroup>
+                </select>
+            </fieldset>
+
+            
+            <fieldset>
+                <legend>Lenguaje de Programación</legend>
+
+                <label for="lenguaje">Elige un lenguaje de programación:</label>
+                <input list="lenguajes" id="lenguaje" name="lenguaje">
+
+                <datalist id="lenguajes">
+                    <option value="JavaScript">
+                    <option value="Python">
+                    <option value="Java">
+                    <option value="C#">
+                    <option value="C++">
+                    <option value="PHP">
+                </datalist>
+            </fieldset>
+
+            <button type="reset">Borrar datos</button>
+            <button type="submit">Enviar</button>
+        </div>
+    </form>
+
+    <script src="./dist/index.js"></script>
+
+</body>
+</html>

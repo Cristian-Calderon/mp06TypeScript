@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquesta Partit de Futbol</title>
+    <script type="module" src="./dist/index.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Enquesta Partit de Futbol</h1>
+        <form id="mainForm" action="respostes.html" method="GET">
+            <fieldset>
+                <legend>Dades Personals</legend>
+
+                <label for="nom">Nom:</label>
+                <input type="text" name="nom" id="nom" autofocus>
+
+                <label for="cognoms">Cognoms:</label>
+                <input type="text" name="cognoms" id="cognoms">
+
+                <label for="dataNaixement">Data de Naixement:</label>
+                <input type="date" name="dataNaixement" id="dataNaixement">
+
+                <label for="ocupacio">Selecciona una ocupació:</label>
+                <input list="ocupacions" name="ocupacio" id="ocupacio" autocomplete="off">
+                <datalist id="ocupacions">
+                    <option value="Estudiant">
+                    <option value="Programador">
+                    <option value="Dissenyador">
+                    <option value="Altres">
+                </datalist>
+            </fieldset>
+
+            <fieldset>
+                <legend>Dades Esportives</legend>
+
+                <label>Amb qui anaves?</label>
+                <div class="radio-group">
+                    <input type="radio" name="equip" value="barcelona" id="barcelona">
+                    <label for="barcelona">Barcelona</label>
+
+                    <input type="radio" name="equip" value="madrid" id="madrid">
+                    <label for="madrid">Madrid</label>
+
+                    <input type="radio" name="equip" value="cap" id="cap">
+                    <label for="cap">Cap</label>
+                </div>
+
+                <label for="altres">Marca un altre esport que t'agradi:</label>
+                <select id="altres" name="altres">
+                    <optgroup label="Convencionals">
+                        <option value="basket">Basket</option>
+                        <option value="tennis">Tennis</option>
+                        <option value="volleyball">Voleibol</option>
+                    </optgroup>
+                    <optgroup label="Electrònics">
+                        <option value="lol">League of Legends</option>
+                        <option value="counter">Counter Strike</option>
+                        <option value="fortnite">Fortnite</option>
+                    </optgroup>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Ajuda a millorar!</legend>
+                <label for="opinio">Opinió sobre el partit:</label>
+                <textarea id="opinio" name="opinio" required cols="60" rows="10"></textarea>
+            </fieldset>
+            <div>
+                <label for="time">Hora d'enviament:</label>
+                <input id="time" type="time" readonly name="time">
+
+                <label for="parell">Valoració :</label>
+                <input type="number" max="10" placeholder="Ha de ser parell" name="parell" id="parell">
+            </div>
+            <div class="buttons">
+                <input type="submit" value="Enviar">
+                <button type="reset">Restablir</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

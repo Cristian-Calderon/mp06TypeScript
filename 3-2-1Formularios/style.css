@@ -1,0 +1,36 @@
+html{
+    font-family: Verdana, Tahoma, sans-serif;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.content label{
+    margin-top: 10px;
+}
+
+fieldset{
+    display: flex;
+    flex-direction: column;
+    width: 420px;
+    
+}
+
+input{
+    margin-top: 5px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input:read-only{
+    background-color: #a8a6a6;
+}
+
+input:focus{
+    color: red;
+}
