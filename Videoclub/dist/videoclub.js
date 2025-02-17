@@ -82,4 +82,21 @@ function loadData() {
     showClients(clients);
 }
 ;
+// Codigo agregado:
+// Capturar los parámetros de la URL y procesarlos
+function processFormData() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+    const email = urlParams.get('email');
+    if (name && email) {
+        clients.set(name, email);
+    }
+    console.log(clients);
+    showClients(clients);
+}
+// Llamar a la función para procesar los datos del formulario cuando se carga la página
+window.onload = () => {
+    processFormData();
+    loadData();
+};
 //# sourceMappingURL=videoclub.js.map
