@@ -1,0 +1,45 @@
+Tengo este formulario: 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="./css/form.css">
+</head>
+<body>
+    <main>
+        <h3>Agregar nuevo cliente</h3>
+        <form id="client-form" action="index.html" method="get">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name">
+            <label for="dob">Fecha de Nacimiento:</label>
+            <input type="date" id="dob" name="dob">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password">
+            
+            <label for="favorite-movie">Película Favorita:</label>
+            <input type="text" id="favorite-movie" name="favorite-movie" list="movie-list">
+            <datalist id="movie-list">
+                <option value="Godfather">
+                <option value="Rocky">
+                <option value="Lord of the Rings">
+            </datalist>
+
+            <label for="favorite-genres">Géneros de Películas Favoritos:</label>
+            <select id="favorite-genres" name="favorite-genres" multiple>
+                <option value="accion">Acción</option>
+                <option value="comedia">Comedia</option>
+                <option value="drama">Drama</option>
+                <option value="terror">Terror</option>
+                <option value="ciencia-ficcion">Ciencia Ficción</option>
+            </select>
+            <!-- Button -->
+            <button type="submit">Agregar </button>
+        </form>
+    </main>
+</body>
+</html>
+
