@@ -1,24 +1,24 @@
-// Map que contiene clientes y sus correos electrónicos
+//Map que conté client i mail
 const clients: Map<string, string> = new Map<string, string>([
   ["Anna", "anna@example.com"],
   ["Joan", "joan@example.com"],
   ["Maria", "invalidemail"],
 ]);
 
-// Arrays para películas y videojuegos
+// Arrays per a pel·lícules i videojocs
 const movies: string[] = [];
 const games: string[] = [];
 
-// Función flecha para validar correos electrónicos
+// Funció fletxa per validar emails
 const isValidEmail = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-// Función para mostrar clientes
-function showClients(clients: Map<string, string>): void {
+// Funció per mostrar clients
+function mostrarClients(clients: Map<string, string>): void {
   const clientList = document.getElementById("clientList")!;
-  // Limpiar lista anterior
+  // Netejar llista anterior
   clientList.innerHTML = "";
   
-  // Verificamos cada valor de cada clave si el correo es correcto y si lo es, lo escribimos en el HTML
+  //Comprovem cada valor de cada clau si el mail es correcte i si ho és, ho escrivim al HTML
   clients.forEach((value, key) => {
     if (isValidEmail(value)) {
       const li = document.createElement("li");
@@ -28,19 +28,19 @@ function showClients(clients: Map<string, string>): void {
   });
 }
 
-// Sobrecarga de la función addProduct, para agregar desde input y desde código
-function addProduct(): void;
-function addProduct(productName: string, platform?: string): void;
+//Sobrecarrega de funcio afegirProducte, per afegir per input i per codi
+function afegirProducte(): void;
+function afegirProducte(producte: string, plataforma?: string): void;
 
-// Función para agregar un videojuego o película
-function addProduct(productName?: string, platform?: string): void {
+//Funció per afegir videojoc o pel·licula
+function afegirProducte(productName?: string, platform?: string): void {
   const input = document.getElementById("itemInput") as HTMLInputElement;
 
-  // Usar valores de parámetros si se proporcionan, o del input si no
+  // Utilizar valores de parámetros si se proporcionan, o del input si no
   const value = productName ? `${productName}${platform ? `,${platform}` : ""}` : input.value.trim();
-  input.value = ""; // Vaciar el input después de agregar
+  input.value = ""; // Buidar l'input després d'afegir
 
-  // Verificamos si hay una coma para distinguir entre videojuego y película
+  //Comprovem si hi ha una coma per distingir entre videojoc i pel·licula
   if (value.includes(",")) {
     const [gameName, gamePlatform] = value.split(",").map(v => v.trim());
     if (gameName && gamePlatform) {
@@ -51,70 +51,49 @@ function addProduct(productName?: string, platform?: string): void {
   }
 }
 
-// Función genérica para escribir en la tabla HTML. Si recibe un array, imprime con su título y si recibe los dos, imprime todo
-function writeTable(title: string, items: string[], items2?: string[]) {
+//Funció generica per escriure en la taula HTML. Si rep una array, imprimeix amb el seu titol i si rep les dos, ho imprimeix tot
+function escriureTaula(titol: string, objectes: string[], objectes2?: string[]) {
   const tableContainer = document.getElementById("tableContainer")!;
-  // Limpiar información anterior
+  // Netejar informació anterior
   tableContainer.innerHTML = ""; 
 
-  // Creamos tabla y cabecera con los datos correspondientes
+  //Creem taula i capçalera amb les dades corresponents
   const table = document.createElement("table");
   const header = document.createElement("tr");
-  header.innerHTML = items2 ? "<th>Movies</th><th>Video Games</th>" : `<th>${title}</th>`;
+  header.innerHTML = objectes2 ? "<th>Pel·lícules</th><th>Videojocs</th>" : "<th>" + titol + "</th>";
   table.appendChild(header);
 
-  // Obtenemos el máximo entre las dos listas para ver hasta qué punto recorrer
-  const maxLength = Math.max(items.length, items2 ? items2.length : 0);
+  //Agafem el màxim entre les dos llistes per veure fins quin punt hem de recorrer
+  const maxLength = Math.max(objectes.length, objectes2? objectes2.length : 0);
 
-  // Creamos una fila por cada posición y la agregamos
+  //Creem per cada posició una fila i l'afegim
   for (let i = 0; i < maxLength; i++) {
     const row = document.createElement("tr");
-    row.innerHTML = items2 ? `<td>${items[i] || ""}</td><td>${items2[i] || ""}</td>` : `<td>${items[i]}</td>`;
+    row.innerHTML = objectes2 ? `<td>${objectes[i] || ""}</td><td>${objectes2[i] || ""}</td>` : `<td>${objectes[i]}</td>`;
     table.appendChild(row);
   }
 
   tableContainer.appendChild(table);
 }
 
-// Función para mostrar los datos según la selección del usuario
-function displayData(type?: string): void {
-  switch (type) {
-    case "Movies":
-      writeTable(type, movies);
+// Funció per mostrar les dades segons el que cliquin
+function mostrarDades(tipus?: string): void {
+  switch (tipus) {
+    case "Pel·licules":
+      escriureTaula(tipus, movies);
       break;
-    case "Video Games":
-      writeTable(type, games);
+    case "Videojocs":
+      escriureTaula(tipus, games);
       break;
     default:
-      writeTable("", movies, games);
+      escriureTaula("", movies, games);
       break;
   }
 }
 
-// Mostrar clientes cuando se carga la página
-function loadData(): void {
-  addProduct("Final Fantasy X, PS2");
-  addProduct("A Nightmare on Elm Street");
-  showClients(clients);
-};
-
-// Codigo agregado:
-// Capturar los parámetros de la URL y procesarlos
-function processFormData(): void {
-  const urlParams = new URLSearchParams(window.location.search);
-  const name = urlParams.get('name');
-  const email = urlParams.get('email');
-
-  if (name && email) {
-    clients.set(name, email);
-  }
-  console.log(clients);
-  
-  showClients(clients);
-}
-
-// Llamar a la función para procesar los datos del formulario cuando se carga la página
-window.onload = () => {
-  processFormData();
-  loadData();
+// Mostrar clients quan es carrega la pàgina
+function carregarDades(): void {
+  afegirProducte("Final Fantasy X, PS2");
+  afegirProducte("Pesadilla en Elm Street");
+  mostrarClients(clients);
 };
