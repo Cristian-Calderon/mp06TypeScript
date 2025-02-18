@@ -1,43 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario</title>
-    <link rel="stylesheet" href="./css/form.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formulario del Videoclub</title>
+  <link rel="stylesheet" href="form.css">
 </head>
 <body>
-    <main>
-        <h3>Agregar nuevo cliente</h3>
-        <form id="client-form" action="index.html" method="get">
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name">
-            <label for="dob">Fecha de Nacimiento:</label>
-            <input type="date" id="dob" name="dob">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email">
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password">
-            
-            <label for="favorite-movie">Película Favorita:</label>
-            <input type="text" id="favorite-movie" name="favorite-movie" list="movie-list">
-            <datalist id="movie-list">
-                <option value="Godfather">
-                <option value="Rocky">
-                <option value="Lord of the Rings">
-            </datalist>
+  <h1>Formulario del Videoclub</h1>
+  <main>
 
-            <label for="favorite-genres">Géneros de Películas Favoritos:</label>
-            <select id="favorite-genres" name="favorite-genres" multiple>
-                <option value="accion">Acción</option>
-                <option value="comedia">Comedia</option>
-                <option value="drama">Drama</option>
-                <option value="terror">Terror</option>
-                <option value="ciencia-ficcion">Ciencia Ficción</option>
-            </select>
-            <!-- Button -->
-            <button type="submit">Agregar </button>
-        </form>
-    </main>
+    <form id="formulariVideoclub" action="index.html" method="GET">
+      <fieldset>
+      <legend>Datos Personales</legend>
+
+      <div>
+        <label for="nomComplet">Nombre Completo:</label>
+        <input type="text" id="nomComplet" name="nombreCompleto" required>
+        <span id="nombreError" class="error-message"></span>
+      </div>
+      
+      <div>
+        <label for="dataNaixement">Fecha de Nacimiento:</label>
+        <input type="date" id="dataNaixement" name="fechaNacimiento" required>
+        <span id="fechaError" class="error-message"></span>
+      </div>
+      
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <span id="emailError" class="error-message"></span>
+      </div>
+      
+      <div>
+        <label for="contrasenya">Contraseña:</label>
+        <input type="password" id="contrasenya" name="contrasenya"
+               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+               <p>La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.</p>
+        <span id="passError" class="error-message"></span>
+      </div>
+      
+      
+      <div>
+        <label for="peliculaPreferida">Película Preferida:</label>
+        <input list="pelicules" id="peliculaPreferida" name="peliculaPreferida">
+        <datalist id="pelicules">
+          <option value="Soy leyenda">
+            <option value="Amanecer de los muertos">
+              <option value="Batman: El caballero oscuro">
+              </datalist>
+            </div>
+            
+            <div>
+              <label for="genereP">Géneros de Película Favoritos:</label>
+              <select id="genereP" name="generoPelicula" multiple>
+                <option value="Acción">Acción</option>
+                <option value="Comedia">Comedia</option>
+                <option value="Drama">Drama</option>
+                <option value="Terror">Terror</option>
+                <option value="Ciencia-ficción">Ciencia-ficción</option>
+              </select>
+            </div>
+            
+            
+            <div>
+              <input type="submit" value="Enviar">
+            </div>
+          </fieldset>
+  </form>
+</main>
+  
+  <button onclick="window.location.href='index.html'">Volver a la Página Principal</button>
+  
+  <script src="./dist/videoclub.js"></script>
 </body>
 </html>
