@@ -236,4 +236,4 @@ function setupFormValidation() {
 
 
 // Llamar a cargar los datos cuando se carga la página
-// window.onload = loadData;
+window.onload = loadData;
