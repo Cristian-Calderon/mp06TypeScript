@@ -2,11 +2,11 @@
 // Arrays to store movies and games
 const movies = [];
 const games = [];
-// Mapa inicial de clientes (por ejemplo, algunos de prueba)
+// Mapa inicial de clientes
 const clients = new Map([
-    ["Anna", { nombreCompleto: "Anna", fechaNacimiento: "1990-05-05", email: "anna@example.com", contrasenya: "1234", peliculaPreferida: "Inception", generoPelicula: ["Acción", "Ciencia Ficción"] }],
-    ["Joan", { nombreCompleto: "Joan", fechaNacimiento: "1985-08-12", email: "joan@example.com", contrasenya: "abcd", peliculaPreferida: "Titanic", generoPelicula: ["Romántico", "Drama"] }],
-    ["Maria", { nombreCompleto: "Maria", fechaNacimiento: "1992-11-22", email: "invalidemail", contrasenya: "5678", peliculaPreferida: "El Señor de los Anillos", generoPelicula: ["Aventura", "Fantasía"] }]
+    ["Anna", { nombreCompleto: "Anna", fechaNacimiento: "2025-02-19", email: "anna@example.com", password: "12345678Ab", favoriteMovie: "Rocky I", generoPelicula: ["Acción"] }],
+    ["Joan", { nombreCompleto: "Joan", fechaNacimiento: "2025-02-19", email: "joan@example.com", password: "12345678Ab", favoriteMovie: "Rocky II", generoPelicula: ["Acción"] }],
+    ["Maria", { nombreCompleto: "Maria", fechaNacimiento: "2026-02-19", email: "invalidemail", password: "0000", favoriteMovie: "Rocky III", generoPelicula: ["Acción"] }]
 ]);
 // Función para validar el formato de un email
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -35,21 +35,20 @@ function mostrarClients(clients) {
         }
     });
 }
-// Función para cargar los datos al inicio de la página principal
-function carregarDades() {
+function loadData() {
     // Si hay parámetros en la URL (vienen del formulario), se procesan
     if (window.location.search) {
         processFormData(); // Procesar los datos del formulario
     }
     // Mostrar los clientes desde localStorage
-    mostrarClientes(); // Mostrar los clientes almacenados en localStorage
+    mostrarClientes();
     // Mostrar los clientes del Map inicial de prueba
-    mostrarClients(clients); // Mostrar los clientes de prueba
+    mostrarClients(clients);
     // Agregar algunos productos de ejemplo
-    afegirProducte("Final Fantasy X, PS2");
-    afegirProducte("Pesadilla en Elm Street");
+    addProduct("Final Fantasy X, PS2");
+    addProduct("Pesadilla en Elm Street");
     // Mostrar los productos (películas y videojuegos)
-    mostrarDades();
+    showData();
 }
 // Función para procesar los datos del formulario (enviados por GET) y guardarlos en LocalStorage
 function processFormData() {
@@ -57,36 +56,34 @@ function processFormData() {
     const nombreCompleto = urlParams.get("nombreCompleto");
     const fechaNacimiento = urlParams.get("fechaNacimiento");
     const email = urlParams.get("email");
-    const contrasenya = urlParams.get("contrasenya");
-    const peliculaPreferida = urlParams.get("peliculaPreferida");
+    const password = urlParams.get("password");
+    const favoriteMovie = urlParams.get("favoriteMovie");
     const generoPelicula = urlParams.getAll("generoPelicula");
     // Verificamos si los parámetros del formulario son válidos
-    if (nombreCompleto && fechaNacimiento && email && contrasenya) {
+    if (nombreCompleto && fechaNacimiento && email && password) {
         let clientes = [];
         const almacenados = localStorage.getItem("clientes");
         if (almacenados) {
             clientes = JSON.parse(almacenados); // Cargar los datos anteriores de localStorage
         }
-        // Comprobamos si el cliente ya está registrado por su email
         const clienteExistente = clientes.find(cliente => cliente.email === email);
         if (!clienteExistente) {
             const nuevoCliente = {
                 nombreCompleto,
                 fechaNacimiento,
                 email,
-                contrasenya,
-                peliculaPreferida: peliculaPreferida || "",
+                password,
+                favoriteMovie: favoriteMovie || "",
                 generoPelicula,
             };
-            // Añadir el nuevo cliente
             clientes.push(nuevoCliente);
-            localStorage.setItem("clientes", JSON.stringify(clientes)); // Guardar todo de nuevo
+            console.log("Nuevo cliente añadido:", nuevoCliente);
+            localStorage.setItem("clientes", JSON.stringify(clientes));
         }
     }
     mostrarClientes();
 }
-// Función para agregar productos (películas y videojuegos)
-function afegirProducte(productName, platform) {
+function addProduct(productName, platform) {
     const input = document.getElementById("itemInput");
     const value = productName
         ? `${productName}${platform ? `, ${platform}` : ""}`
@@ -123,7 +120,7 @@ function escriureTaula(titol, objectes, objectes2) {
     tableContainer.appendChild(table);
 }
 // Función para mostrar datos: películas, videojuegos o ambos
-function mostrarDades(tipus) {
+function showData(tipus) {
     switch (tipus) {
         case "Pel·licules":
             escriureTaula(tipus, movies);
@@ -143,7 +140,7 @@ function setupFormValidation() {
         form.addEventListener("submit", (event) => {
             let valido = true;
             // Validar nombre completo
-            const nombreInput = document.getElementById("nomComplet");
+            const nombreInput = document.getElementById("fullName");
             const nombreError = document.getElementById("nombreError");
             if (!nombreInput.value.trim()) {
                 nombreError.textContent = "El nombre completo es requerido.";
@@ -153,7 +150,7 @@ function setupFormValidation() {
                 nombreError.textContent = "";
             }
             // Validar fecha de nacimiento
-            const fechaInput = document.getElementById("dataNaixement");
+            const fechaInput = document.getElementById("birthDate");
             const fechaError = document.getElementById("fechaError");
             if (!fechaInput.value) {
                 fechaError.textContent = "La fecha de nacimiento es requerida.";
@@ -173,16 +170,16 @@ function setupFormValidation() {
                 emailError.textContent = "";
             }
             // Validar contraseña
-            const passInput = document.getElementById("contrasenya");
-            const passError = document.getElementById("passError");
-            const passPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-            if (!passPattern.test(passInput.value)) {
-                passError.textContent =
+            const passwordInput = document.getElementById("password");
+            const passwordError = document.getElementById("passError");
+            const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+            if (!passwordPattern.test(passwordInput.value)) {
+                passwordError.textContent =
                     "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.";
                 valido = false;
             }
             else {
-                passError.textContent = "";
+                passwordError.textContent = "";
             }
             if (!valido) {
                 event.preventDefault();
@@ -197,5 +194,5 @@ function setupFormValidation() {
 //   mostrarClientes(); 
 // }
 // Llamar a cargar los datos cuando se carga la página
-// window.onload = carregarDades;
+// window.onload = loadData;
 //# sourceMappingURL=videoclub.js.map

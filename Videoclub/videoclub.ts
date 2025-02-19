@@ -1,10 +1,9 @@
-
 interface Cliente {
   nombreCompleto: string;
   fechaNacimiento: string;
   email: string;
-  contrasenya: string;
-  peliculaPreferida: string;
+  password: string;
+  favoriteMovie: string;
   generoPelicula: string[];
 }
 
@@ -12,11 +11,11 @@ interface Cliente {
 const movies: string[] = [];
 const games: string[] = [];
 
-// Mapa inicial de clientes (por ejemplo, algunos de prueba)
+// Mapa inicial de clientes
 const clients: Map<string, Cliente> = new Map<string, Cliente>([
-  ["Anna", { nombreCompleto: "Anna", fechaNacimiento: "1990-05-05", email: "anna@example.com", contrasenya: "1234", peliculaPreferida: "Inception", generoPelicula: ["Acción", "Ciencia Ficción"] }],
-  ["Joan", { nombreCompleto: "Joan", fechaNacimiento: "1985-08-12", email: "joan@example.com", contrasenya: "abcd", peliculaPreferida: "Titanic", generoPelicula: ["Romántico", "Drama"] }],
-  ["Maria", { nombreCompleto: "Maria", fechaNacimiento: "1992-11-22", email: "invalidemail", contrasenya: "5678", peliculaPreferida: "El Señor de los Anillos", generoPelicula: ["Aventura", "Fantasía"] }]
+  ["Anna", { nombreCompleto: "Anna", fechaNacimiento: "2025-02-19", email: "anna@example.com", password: "12345678Ab", favoriteMovie: "Rocky I", generoPelicula: ["Acción"] }],
+  ["Joan", { nombreCompleto: "Joan", fechaNacimiento: "2025-02-19", email: "joan@example.com", password: "12345678Ab", favoriteMovie: "Rocky II", generoPelicula: ["Acción"] }],
+  ["Maria", { nombreCompleto: "Maria", fechaNacimiento: "2026-02-19", email: "invalidemail", password: "0000", favoriteMovie: "Rocky III", generoPelicula: ["Acción"] }]
 ]);
 
 // Función para validar el formato de un email
@@ -51,10 +50,8 @@ function mostrarClients(clients: Map<string, Cliente>): void {
   });
 }
 
-// Función para cargar los datos al inicio de la página principal
-function carregarDades(): void {
 
-
+function loadData(): void {
   
   // Si hay parámetros en la URL (vienen del formulario), se procesan
   if (window.location.search) {
@@ -62,17 +59,17 @@ function carregarDades(): void {
   }
 
   // Mostrar los clientes desde localStorage
-  mostrarClientes(); // Mostrar los clientes almacenados en localStorage
+  mostrarClientes(); 
 
   // Mostrar los clientes del Map inicial de prueba
-  mostrarClients(clients); // Mostrar los clientes de prueba
+  mostrarClients(clients)
 
   // Agregar algunos productos de ejemplo
-  afegirProducte("Final Fantasy X, PS2");
-  afegirProducte("Pesadilla en Elm Street");
+  addProduct("Final Fantasy X, PS2");
+  addProduct("Pesadilla en Elm Street");
 
   // Mostrar los productos (películas y videojuegos)
-  mostrarDades();
+  showData();
   
 }
 
@@ -82,12 +79,12 @@ function processFormData(): void {
   const nombreCompleto = urlParams.get("nombreCompleto");
   const fechaNacimiento = urlParams.get("fechaNacimiento");
   const email = urlParams.get("email");
-  const contrasenya = urlParams.get("contrasenya");
-  const peliculaPreferida = urlParams.get("peliculaPreferida");
+  const password = urlParams.get("password");
+  const favoriteMovie = urlParams.get("favoriteMovie");
   const generoPelicula = urlParams.getAll("generoPelicula");
 
   // Verificamos si los parámetros del formulario son válidos
-  if (nombreCompleto && fechaNacimiento && email && contrasenya) {
+  if (nombreCompleto && fechaNacimiento && email && password) {
     let clientes: Cliente[] = [];
     const almacenados = localStorage.getItem("clientes");
 
@@ -95,7 +92,6 @@ function processFormData(): void {
       clientes = JSON.parse(almacenados); // Cargar los datos anteriores de localStorage
     }
 
-    // Comprobamos si el cliente ya está registrado por su email
     const clienteExistente = clientes.find(cliente => cliente.email === email);
     
     if (!clienteExistente) {
@@ -103,22 +99,22 @@ function processFormData(): void {
         nombreCompleto,
         fechaNacimiento,
         email,
-        contrasenya,
-        peliculaPreferida: peliculaPreferida || "",
+        password,
+        favoriteMovie: favoriteMovie || "",
         generoPelicula,
       };
 
-      // Añadir el nuevo cliente
       clientes.push(nuevoCliente);
-      localStorage.setItem("clientes", JSON.stringify(clientes)); // Guardar todo de nuevo
+      console.log("Nuevo cliente añadido:", nuevoCliente);
+      
+      localStorage.setItem("clientes", JSON.stringify(clientes)); 
     }
   }
   mostrarClientes(); 
   
 }
 
-// Función para agregar productos (películas y videojuegos)
-function afegirProducte(productName?: string, platform?: string): void {
+function addProduct(productName?: string, platform?: string): void {
   const input = document.getElementById("itemInput") as HTMLInputElement;
   const value = productName
     ? `${productName}${platform ? `, ${platform}` : ""}`
@@ -161,7 +157,7 @@ function escriureTaula(
 }
 
 // Función para mostrar datos: películas, videojuegos o ambos
-function mostrarDades(tipus?: string): void {
+function showData(tipus?: string): void {
   switch (tipus) {
     case "Pel·licules":
       escriureTaula(tipus, movies);
@@ -183,7 +179,7 @@ function setupFormValidation() {
       let valido = true;
 
       // Validar nombre completo
-      const nombreInput = document.getElementById("nomComplet") as HTMLInputElement;
+      const nombreInput = document.getElementById("fullName") as HTMLInputElement;
       const nombreError = document.getElementById("nombreError") as HTMLElement;
       if (!nombreInput.value.trim()) {
         nombreError.textContent = "El nombre completo es requerido.";
@@ -193,7 +189,7 @@ function setupFormValidation() {
       }
 
       // Validar fecha de nacimiento
-      const fechaInput = document.getElementById("dataNaixement") as HTMLInputElement;
+      const fechaInput = document.getElementById("birthDate") as HTMLInputElement;
       const fechaError = document.getElementById("fechaError") as HTMLElement;
       if (!fechaInput.value) {
         fechaError.textContent = "La fecha de nacimiento es requerida.";
@@ -213,15 +209,15 @@ function setupFormValidation() {
       }
 
       // Validar contraseña
-      const passInput = document.getElementById("contrasenya") as HTMLInputElement;
-      const passError = document.getElementById("passError") as HTMLElement;
-      const passPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-      if (!passPattern.test(passInput.value)) {
-        passError.textContent =
+      const passwordInput = document.getElementById("password") as HTMLInputElement;
+      const passwordError = document.getElementById("passError") as HTMLElement;
+      const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+      if (!passwordPattern.test(passwordInput.value)) {
+        passwordError.textContent =
           "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.";
         valido = false;
       } else {
-        passError.textContent = "";
+        passwordError.textContent = "";
       }
 
       if (!valido) {
@@ -240,4 +236,4 @@ function setupFormValidation() {
 
 
 // Llamar a cargar los datos cuando se carga la página
-// window.onload = carregarDades;
+// window.onload = loadData;

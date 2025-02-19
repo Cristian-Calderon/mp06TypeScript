@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="index.css">
 </head>
 
-<body onload="carregarDades()">
+<body onload="loadData()">
   <div class="background-image"></div>
 
   <h1>Videoclub</h1>
@@ -22,15 +22,15 @@
   <section id="addItem">
     <h2>Afegir Pel·lícules o Videojocs</h2>
     <input type="text" id="itemInput" placeholder="Nom o Nom, Plataforma">
-    <button onclick="afegirProducte()">Afegir</button>
+    <button onclick="addProduct()">Afegir</button>
   </section>
 
   <section id="displayItems">
     <h2>Mostrar Contingut</h2>
     <div class="controls">
-      <button onclick="mostrarDades('Pel·licules')">Mostrar Pel·lícules</button>
-      <button onclick="mostrarDades('Videojocs')">Mostrar Videojocs</button>
-      <button onclick="mostrarDades()">Mostrar Tot</button>
+      <button onclick="showData('Pel·licules')">Mostrar Pel·lícules</button>
+      <button onclick="showData('Videojocs')">Mostrar Videojocs</button>
+      <button onclick="showData()">Mostrar Tot</button>
     </div>
     <div id="tableContainer"></div>
     <br>
@@ -39,7 +39,7 @@
 
   </section>
   
-  <!-- <section id="clearData">
+  <!--  <section id="clearData">
     <h2>Administración</h2>
     <button onclick="limpiarLocalStorage()">Limpiar Clientes</button>
   </section> -->
