@@ -189,10 +189,8 @@ function setupFormValidation() {
 }
 // Limpiar local storage
 // function limpiarLocalStorage(): void {
-//   localStorage.removeItem("clientes"); 
+//   localStorage.removeItem("clientes");
 //   console.log("LocalStorage limpiado.");
-//   mostrarClientes(); 
+//   mostrarClientes();
 // }
-// Llamar a cargar los datos cuando se carga la página
-window.onload = loadData;
 //# sourceMappingURL=videoclub.js.map

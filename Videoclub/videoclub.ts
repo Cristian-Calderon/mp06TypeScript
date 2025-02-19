@@ -24,14 +24,14 @@ const isValidEmail = (email: string): boolean =>
 
 // Función para mostrar los clientes desde localStorage
 function mostrarClientes(): void {
-  const clientList = document.getElementById("clientList")!;
+  const clientList: HTMLElement = document.getElementById("clientList")!;
   clientList.innerHTML = ""; // Limpiar la lista antes de mostrar los nuevos datos
 
   const almacenados = localStorage.getItem("clientes");
   if (almacenados) {
     const clientes: Cliente[] = JSON.parse(almacenados); // Recuperar clientes desde localStorage
     clientes.forEach((cliente) => {
-      const li = document.createElement("li");
+      const li: HTMLLIElement = document.createElement("li");
       li.textContent = `${cliente.nombreCompleto} - ${cliente.email}`;
       clientList.appendChild(li); // Mostrar los clientes en la lista
     });
@@ -40,10 +40,10 @@ function mostrarClientes(): void {
 
 // Función para mostrar los clientes del mapa inicial (de prueba)
 function mostrarClients(clients: Map<string, Cliente>): void {
-  const clientList = document.getElementById("clientList")!;
+  const clientList: HTMLElement = document.getElementById("clientList")!;
   clients.forEach((cliente, key) => {
     if (isValidEmail(cliente.email)) {
-      const li = document.createElement("li");
+      const li: HTMLLIElement = document.createElement("li");
       li.textContent = `${cliente.nombreCompleto}: ${cliente.email}`;
       clientList.appendChild(li); // Mostrar los clientes en la lista
     }
@@ -52,14 +52,14 @@ function mostrarClients(clients: Map<string, Cliente>): void {
 
 
 function loadData(): void {
-  
+
   // Si hay parámetros en la URL (vienen del formulario), se procesan
   if (window.location.search) {
     processFormData(); // Procesar los datos del formulario
   }
 
   // Mostrar los clientes desde localStorage
-  mostrarClientes(); 
+  mostrarClientes();
 
   // Mostrar los clientes del Map inicial de prueba
   mostrarClients(clients)
@@ -70,30 +70,30 @@ function loadData(): void {
 
   // Mostrar los productos (películas y videojuegos)
   showData();
-  
+
 }
 
 // Función para procesar los datos del formulario (enviados por GET) y guardarlos en LocalStorage
 function processFormData(): void {
   const urlParams = new URLSearchParams(window.location.search);
-  const nombreCompleto = urlParams.get("nombreCompleto");
-  const fechaNacimiento = urlParams.get("fechaNacimiento");
-  const email = urlParams.get("email");
-  const password = urlParams.get("password");
-  const favoriteMovie = urlParams.get("favoriteMovie");
-  const generoPelicula = urlParams.getAll("generoPelicula");
+  const nombreCompleto: string | null = urlParams.get("nombreCompleto");
+  const fechaNacimiento: string | null = urlParams.get("fechaNacimiento");
+  const email: string | null = urlParams.get("email");
+  const password: string | null = urlParams.get("password");
+  const favoriteMovie: string | null = urlParams.get("favoriteMovie");
+  const generoPelicula: string[] = urlParams.getAll("generoPelicula");
 
   // Verificamos si los parámetros del formulario son válidos
   if (nombreCompleto && fechaNacimiento && email && password) {
     let clientes: Cliente[] = [];
-    const almacenados = localStorage.getItem("clientes");
+    const almacenados : string | null = localStorage.getItem("clientes");
 
     if (almacenados) {
       clientes = JSON.parse(almacenados); // Cargar los datos anteriores de localStorage
     }
 
     const clienteExistente = clientes.find(cliente => cliente.email === email);
-    
+
     if (!clienteExistente) {
       const nuevoCliente: Cliente = {
         nombreCompleto,
@@ -106,12 +106,12 @@ function processFormData(): void {
 
       clientes.push(nuevoCliente);
       console.log("Nuevo cliente añadido:", nuevoCliente);
-      
-      localStorage.setItem("clientes", JSON.stringify(clientes)); 
+
+      localStorage.setItem("clientes", JSON.stringify(clientes));
     }
   }
-  mostrarClientes(); 
-  
+  mostrarClientes();
+
 }
 
 function addProduct(productName?: string, platform?: string): void {
@@ -136,7 +136,7 @@ function escriureTaula(
   objectes: string[],
   objectes2?: string[]
 ) {
-  const tableContainer = document.getElementById("tableContainer")!;
+  const tableContainer: HTMLElement = document.getElementById("tableContainer")!;
   tableContainer.innerHTML = "";
   const table = document.createElement("table");
   const header = document.createElement("tr");
@@ -229,11 +229,8 @@ function setupFormValidation() {
 
 // Limpiar local storage
 // function limpiarLocalStorage(): void {
-//   localStorage.removeItem("clientes"); 
+//   localStorage.removeItem("clientes");
 //   console.log("LocalStorage limpiado.");
-//   mostrarClientes(); 
+//   mostrarClientes();
 // }
 
-
-// Llamar a cargar los datos cuando se carga la página
-window.onload = loadData;
