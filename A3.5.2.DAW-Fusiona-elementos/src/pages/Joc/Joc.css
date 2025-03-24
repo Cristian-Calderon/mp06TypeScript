@@ -1,0 +1,52 @@
+body::after {
+    content: "";
+    background-image: url("./Punk-hazard.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.board {
+    display: grid;
+    gap: 5px;
+    padding: 10px;
+    background: linear-gradient(#e66465, #9198e5);
+}
+
+.row {
+    display: flex;
+    gap: 5px;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    font-size: 24px;
+    cursor: grab;
+}
+
+.generator {
+    font-size: 24px;
+    cursor: pointer;
+}
