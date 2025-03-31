@@ -1,0 +1,103 @@
+/ 20250327203038
+// http://192.168.236.234:8080/objects
+
+[
+  {
+    "id": "eb242b73-813e-4e1a-9801-a06b4d6d0697",
+    "name": "Test",
+    "data": {
+      "photo": "Nueva foto",
+      "description": "Nueva descripción",
+      "price": 0.0
+    }
+  },
+  {
+    "id": "ed210fd8-aee6-4a65-9dee-5536659deb5f",
+    "name": "Test",
+    "data": {
+      "photo": "Nueva foto",
+      "description": "Nueva descripción",
+      "price": 0.0
+    }
+  },
+  {
+    "id": "5a2cc50c-82cd-48a7-81d0-4bd834bfdae0",
+    "name": "Test",
+    "data": {
+      "photo": "Nueva foto",
+      "description": "Nueva descripción",
+      "price": 0.0
+    }
+  },
+  {
+    "id": "a8aa4a1b-b2b5-4589-a763-f554e8d4b1be",
+    "name": "Test",
+    "data": {
+      "photo": "Nueva foto",
+      "description": "Nueva descripción",
+      "price": 0.0
+    }
+  },
+  {
+    "id": "d66136fa-8a57-48ad-8fc8-54242c57a340",
+    "name": "Test",
+    "data": {
+      "photo": "Nueva foto",
+      "description": "Nueva descripción",
+      "price": 0.0
+    }
+  },
+  {
+    "id": "3333b245-1d3e-4588-9ca3-6ae81fa6ab13",
+    "name": "Teacher",
+    "data": {
+      "photo": "https://elpuig.xeill.net/custom/img/profes/jordifarrero.webp",
+      "description": "goffyah",
+      "price": 3000.0
+    }
+  },
+  {
+    "id": "e3ac53bf-d53f-45e2-8a44-2b1eefd85645",
+    "name": "Teacher",
+    "data": {
+      "photo": "https://elpuig.xeill.net/custom/img/profes/jordifarrero.webp",
+      "description": "goffyah",
+      "price": 3000.0
+    }
+  },
+  {
+    "id": "599bf46f-03c1-4775-ac5f-fcac942b3078",
+    "name": "Teacher",
+    "data": {
+      "photo": "https://elpuig.xeill.net/custom/img/profes/jordifarrero.webp",
+      "description": "goffyah",
+      "price": 3000.0
+    }
+  },
+  {
+    "id": "c69295c6-c9c3-4d1d-b237-1936b0b63618",
+    "name": "Test",
+    "data": {
+      "photo": "Nueva foto",
+      "description": "Nueva descripción",
+      "price": 0.0
+    }
+  },
+  {
+    "id": "ca659971-7422-4db6-a72c-aed813972bf9",
+    "name": "Test",
+    "data": {
+      "photo": "Nueva foto",
+      "description": "Nueva descripción",
+      "price": 0.0
+    }
+  },
+  {
+    "id": "b84f37a8-e71b-47a9-9f63-650f835c4c2f",
+    "name": "Test",
+    "data": {
+      "photo": "Nueva foto",
+      "description": "Nueva descripción",
+      "price": 0.0
+    }
+  },
