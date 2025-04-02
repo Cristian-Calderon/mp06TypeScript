@@ -75,43 +75,39 @@ function Home() {
         alert("Introduce los datos del nuevo objeto");
         return;
       }
+
       const [name, photo, description, priceStr] = newObject.split(",");
       const price = parseFloat(priceStr);
 
-      const newObj = {
-        name,
-        data: {
-          photo,
-          description,
-          price,
-        },
-      };
+      const data = new ModelData(photo, description, price);
+      const newObj = new ModelObject(name, data);
 
       const response = await axios.post(API_URL, newObj);
 
       if (response.status === 201 || response.status === 200) {
-        alert("Producto creado correctament");
+        alert("Producto creado correctamente");
+        setNewObject("");
         fetchObjects();
       }
     } catch (error) {
-      console.error("El error ", error);
+      console.error("Error creando objeto:", error);
+      alert("No se pudo crear el producto");
     }
   };
 
   const updateObject = async (id: string) => {
     //TODO Actualizar un objeto por ID con fetch
     try {
+      if (!newObject) {
+        alert("Introduce los datos actualizados del producto");
+        return;
+      }
+
       const [name, photo, description, priceStr] = newObject.split(",");
       const price = parseFloat(priceStr);
 
-      const updatedObj = {
-        name,
-        data: {
-          photo,
-          description,
-          price,
-        },
-      };
+      const data = new ModelData(photo, description, price);
+      const updatedObj = new ModelObject(name, data, id);
 
       const response = await fetch(`${API_URL}/${id}`, {
         method: "PUT",
@@ -126,7 +122,8 @@ function Home() {
       }
 
       alert("Producto actualizado correctamente");
-      fetchObjects(); // Refrescar la lista
+      setNewObject("");
+      fetchObjects();
     } catch (error) {
       console.error("Error actualizando:", error);
       alert("No se pudo actualizar el producto");
